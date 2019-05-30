@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset=utf-8>
+    <meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1">
+    <title>safari-block</title>
+    <link href=./static/css/app.555b0188a5841564f4c3956378a1ce77.css rel=stylesheet>
+</head>
+
+<body>
+    <p>https页面，请在safari下打开</p>
+    <p>
+        <button id="locationAfterHttp">加载http图片后定位</button>
+    </p>
+    <p>
+        <button id="locationBeforeHttp">定位后加载https图片</button>
+    </p>
+    <script>
+        document.getElementById('locationAfterHttp').addEventListener('click', function () {
+            var img = document.createElement('img')
+            img.src = "http://note.youdao.com/yws/api/personal/file/77DE5EDCC8614A3EB85AFD755A37DEE7?method=download&shareKey=692ce81777cdf8ff7dd6415fce9f2f52"
+            document.body.append(img)
+            navigator.geolocation.getCurrentPosition(function (position) {
+                var p = document.createElement('p')
+                p.innerText = '定位成功'
+                document.body.append(p)
+                console.log(position)
+
+            }, function (error) {
+                var p = document.createElement('p')
+                p.innerText = '定位失败：' + JSON.stringify(error)
+                document.body.append(p)
+                console.log(error)
+            })
+        })
+        document.getElementById('locationBeforeHttp').addEventListener('click', function () {
+            navigator.geolocation.getCurrentPosition(function (position) {
+                console.log(position)
+                alert('location succ')
+                var img = document.createElement('img')
+                img.src = "http://note.youdao.com/yws/api/personal/file/77DE5EDCC8614A3EB85AFD755A37DEE7?method=download&shareKey=692ce81777cdf8ff7dd6415fce9f2f52"
+                document.body.append(img)
+            }, function (error) {
+                console.log(error)
+                alert('location error')
+                var img = document.createElement('img')
+                img.src = "http://note.youdao.com/yws/api/personal/file/77DE5EDCC8614A3EB85AFD755A37DEE7?method=download&shareKey=692ce81777cdf8ff7dd6415fce9f2f52"
+                document.body.append(img)
+            })
+        })
+
+        setTimeout(() => {
+            var img = document.createElement('img')
+            img.src = "https://note.youdao.com/yws/api/personal/file/9A1CCD0F70FB478FBFCBB7A7A5B41C03?method=download&shareKey=05c0803b125e83baef0a72510ee452c2"
+            document.body.append(img)
+        }, 3000)
+    </script>
+</body>
