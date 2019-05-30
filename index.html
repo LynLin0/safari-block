@@ -49,6 +49,11 @@
                 var img = document.createElement('img')
                 img.style.display = 'block'
                 img.src = "http://note.youdao.com/yws/api/personal/file/62B5069FE82945FCB56A38E135C75FCA?method=download&shareKey=910b2c22de2393c1c34faaedc56d97ad"
+                img.onerror=function() {
+                    var p = document.createElement('p')
+                    p.innerText = 'http图片加载失败'
+                    document.body.append(p)
+                }
                 document.body.append(img)
                 var p = document.createElement('p')
                 p.innerText = '定位失败：' + JSON.stringify(error)
